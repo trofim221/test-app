@@ -21,6 +21,7 @@ class StatisticsController extends Controllers
             'user_id' => $_GET['user_id'] ?? null,
             'action' => $_GET['action'] ?? null,
             'date' => $_GET['date'] ?? null,
+            'details' => $_GET['details'] ?? null,
         ];
 
         $events = $this->statisticsModel->getFiltered($filters);

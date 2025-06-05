@@ -8,13 +8,15 @@
             <input type="text" class="form-control" name="user_id" placeholder="User ID" value="<?= htmlspecialchars($filters['user_id'] ?? '') ?>">
         </div>
         <div class="col-md-3">
-            <select class="form-select" name="action">
-                <option value="">All Action</option>
-                <option value="login" <?= $filters['action'] === 'login' ? 'selected' : '' ?>>Login</option>
-                <option value="logout" <?= $filters['action'] === 'logout' ? 'selected' : '' ?>>Logout</option>
-                <option value="registration" <?= $filters['action'] === 'registration' ? 'selected' : '' ?>>Registration</option>
-                <option value="view-page" <?= $filters['action'] === 'view-page' ? 'selected' : '' ?>>View Page</option>
-                <option value="button-click" <?= $filters['action'] === 'button-click' ? 'selected' : '' ?>>Button Click</option>
+            <select name="details" class="form-select">
+                <option value="">All</option>
+                <option value="login" <?= $filters['details'] === 'login' ? 'selected' : '' ?>>Login Page</option>
+                <option value="registration" <?= $filters['details'] === 'registration' ? 'selected' : '' ?>>Registration Page</option>
+                <option value="user-logout" <?= $filters['details'] === 'user-logout' ? 'selected' : '' ?>>User Logout</option>
+                <option value="page-a" <?= $filters['details'] === 'page-a' ? 'selected' : '' ?>>Page A</option>
+                <option value="page-b" <?= $filters['details'] === 'page-b' ? 'selected' : '' ?>>Page B</option>
+                <option value="buy-cow" <?= $filters['details'] === 'buy-cow' ? 'selected' : '' ?>>Buy a Cow</option>
+                <option value="download" <?= $filters['details'] === 'download' ? 'selected' : '' ?>>Download</option>
             </select>
         </div>
         <div class="col-md-3">

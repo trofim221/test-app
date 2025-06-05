@@ -21,6 +21,11 @@ class StatisticsModel extends Model
             $params[':action'] = $filters['action'];
         }
 
+        if (!empty($filters['details'])) {
+            $sql .= " AND details = :details";
+            $params[':details'] = $filters['details'];
+        }
+
         if (!empty($filters['date'])) {
             $sql .= " AND DATE(created_at) = :date";
             $params[':date'] = $filters['date'];
