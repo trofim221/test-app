@@ -9,7 +9,7 @@ class Router
 
     protected $container;
 
-    // Додаємо DI контейнер через конструктор
+
     public function __construct(Container $container)
     {
         $this->container = $container;
@@ -76,12 +76,16 @@ class Router
     }
     protected function callAction($controllerAction, $params = [])
     {
+
+        if (is_callable($controllerAction)) {
+            return call_user_func_array($controllerAction, $params);
+        }
+
         if (is_array($controllerAction)) {
             [$controllerClass, $method] = $controllerAction;
         } elseif (is_string($controllerAction) && str_contains($controllerAction, '@')) {
             [$controller, $method] = explode('@', $controllerAction);
 
-            // Якщо вже namespace — використовуємо як є
             $controllerClass = str_replace('/', '\\', $controller);
         } else {
             throw new \Exception("Invalid route definition.");

@@ -4,22 +4,17 @@ namespace App\Controllers;
 use App\Core\Controllers;
 use App\Core\View;
 use App\Models\UserModel;
-use App\Services\UserActivityService;
 
 class UserAuthController extends Controllers
 {
     private UserModel $userModel;
-    private UserActivityService $activity;
-    public function __construct(UserModel $userModel, UserActivityService $activity)
+    public function __construct(UserModel $userModel)
     {
         $this->userModel = $userModel;
-        $this->activity = $activity;
     }
 
     public function loginForm()
     {
-        $this->activity->log('login');
-
         $this->redirectIfAuthenticated();
 
         $message = null;
@@ -49,7 +44,6 @@ class UserAuthController extends Controllers
 
     public function logout():void
     {
-        $this->activity->log('logout');
         session_unset();
         session_destroy();
         $this->redirect('/user/login');
@@ -57,8 +51,6 @@ class UserAuthController extends Controllers
 
     public function registerForm():void
     {
-        $this->activity->log('registration');
-
         $this->redirectIfAuthenticated();
         View::render('user/register');
     }

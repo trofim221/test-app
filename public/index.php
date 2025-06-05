@@ -17,6 +17,7 @@ use App\Core\Container;
 use App\Core\View;
 use App\Admin\Middleware\MiddlewareFactory;
 use App\Middleware\UserMiddlewareFactory;
+use App\Services\RouteLogger;
 
 // Set base path for views
 View::setBasePath(__DIR__ . '/../app/views');
@@ -24,23 +25,36 @@ View::setBasePath(__DIR__ . '/../app/views');
 // Initialize service container and router
 $container = new Container();
 $router = new Router($container);
+$routeLogger = new RouteLogger($container);
 
 // User authentication routes
-$router->get('/user/register', 'App\Controllers\UserAuthController@registerForm');
+$routeLogger->logRoute($router, 'get', '/user/register', 'App\Controllers\UserAuthController@registerForm', 'view-page', 'registration');
+/*$router->get('/user/register', 'App\Controllers\UserAuthController@registerForm');*/
 $router->post('/user/register', 'App\Controllers\UserAuthController@register');
-$router->get('/user/login', 'App\Controllers\UserAuthController@loginForm');
+$routeLogger->logRoute($router, 'get', '/user/login', 'App\Controllers\UserAuthController@loginForm', 'view-page', 'login');
+/*$router->get('/user/login', 'App\Controllers\UserAuthController@loginForm');*/
 $router->post('/user/login', 'App\Controllers\UserAuthController@login');
-$router->get('/user/logout', 'App\Controllers\UserAuthController@logout');
+$routeLogger->logRoute($router, 'get', '/user/logout', 'App\Controllers\UserAuthController@logout', 'logout', 'user-logout');
+/*$router->get('/user/logout', 'App\Controllers\UserAuthController@logout');*/
 
 // Public pages
 $router->get('/', 'App\Controllers\HomeController@index');
-$router->get('/page-b', 'App\Controllers\PageController@pageB');
-$router->get('/download', 'App\Controllers\PageController@download');
+$routeLogger->logRoute($router, 'get', '/page-b', 'App\Controllers\PageController@pageB', 'view-page', 'page-b');
+$routeLogger->logRoute($router, 'get', '/download', 'App\Controllers\PageController@download', 'button-click', 'download');
+
+// if you needed without events
+/*$router->get('/page-b', 'App\Controllers\PageController@pageB');
+$router->get('/download', 'App\Controllers\PageController@download');*/
 
 // Protected user pages
-$router->middleware(UserMiddlewareFactory::auth($container), function () use ($router) {
-    $router->get('/page-a', 'App\Controllers\PageController@pageA');
-    $router->post('/buy-cow', 'App\Controllers\PageController@buyCow');
+$router->middleware(UserMiddlewareFactory::auth($container), function () use ($router, $routeLogger) {
+
+    $routeLogger->logRoute($router, 'get', '/page-a', 'App\Controllers\PageController@pageA', 'view-page', 'page-a');
+    $routeLogger->logRoute($router, 'post', '/buy-cow', 'App\Controllers\PageController@buyCow', 'button-click', 'buy-cow');
+
+    // if you needed without events
+    /*$router->get('/page-a', 'App\Controllers\PageController@pageA');
+    $router->post('/buy-cow', 'App\Controllers\PageController@buyCow');*/
 });
 
 // Admin login/logout routes
