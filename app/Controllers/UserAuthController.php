@@ -18,6 +18,8 @@ class UserAuthController extends Controllers
 
     public function loginForm()
     {
+        $this->activity->log('login');
+
         $this->redirectIfAuthenticated();
 
         $message = null;
@@ -30,13 +32,14 @@ class UserAuthController extends Controllers
 
     public function login()
     {
+
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
         $user = $this->userModel->findByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
-            $this->activity->log('login');
+
             $this->createUserSession($user);
             $this->redirect('/page-a');
         }
@@ -54,6 +57,8 @@ class UserAuthController extends Controllers
 
     public function registerForm():void
     {
+        $this->activity->log('registration');
+
         $this->redirectIfAuthenticated();
         View::render('user/register');
     }
@@ -66,7 +71,6 @@ class UserAuthController extends Controllers
 
         if ($email && $password) {
             $this->userModel->register($email, $password, $name);
-            $this->activity->log('registration');
             $this->redirect('/user/login?success=1');
         }
 
