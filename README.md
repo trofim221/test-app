@@ -27,3 +27,8 @@
 - /page-b
 
 ### Admin Pages
+- /admin/
+- /admin/statistics
+- /admin/reports
+- /admin/users
+- /admin/manage-admins

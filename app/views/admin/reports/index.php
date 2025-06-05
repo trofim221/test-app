@@ -13,7 +13,7 @@
         <tr>
             <th>Date</th>
             <th>Views Page A</th>
-            <th>Views Pge B</th>
+            <th>Views Page B</th>
             <th>Click “Buy a cow”</th>
             <th>Click “Download”</th>
         </tr>
