@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -32,6 +33,4 @@ class UserModel extends Model
     {
         return $this->fetchOne("SELECT * FROM {$this->table} WHERE id = :id", [':id' => $id]);
     }
-
-
 }

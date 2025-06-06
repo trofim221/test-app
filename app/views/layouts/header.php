@@ -6,53 +6,7 @@
     <title>PC APP STORE™</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #fff;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .top-bar {
-            background-color: black;
-            padding: 10px 30px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .auth-card {
-            background-color: #1c1c1c;
-            color: white;
-            max-width: 500px;
-            margin: 60px auto;
-            padding: 40px;
-            text-align: center;
-        }
-        .auth-card input.form-control {
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #ccc;
-            border-radius: 0;
-            color: #fff;
-        }
-        .auth-card input.form-control::placeholder {
-            color: #bbb;
-            opacity: 1;
-        }
-        .btn-gradient {
-            background: linear-gradient(to right, red, #a71c40);
-            color: white;
-            border: none;
-            padding: 15px 10px;
-            font-weight: bold;
-            width: 100%;
-            border-radius: 0px;
-        }
-        .btn-outline-white {
-            border: 1px solid white;
-            color: white;
-            background: none;
-        }
-    </style>
+    <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Middleware;
 
@@ -20,5 +21,4 @@ class UserMiddlewareFactory
     {
         return fn() => new UserRoleMiddleware($roles);
     }
-
 }

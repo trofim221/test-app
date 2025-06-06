@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Admin\Controllers;
 
@@ -17,7 +18,7 @@ class DashboardController
         $this->eventModel = $eventModel;
     }
 
-    public function index()
+    public function index(): void
     {
         $userCount = $this->userModel->countUsers();
         $eventCount = $this->eventModel->countEvents();

@@ -15,25 +15,18 @@
     <form action="/admin/manage-admins/update/<?= $admin['id'] ?>" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">Username:</label>
-            <input type="text" name="username" id="username" class="form-control"
-                   value="<?= htmlspecialchars($admin['username']) ?>" required>
+            <input type="text" name="username" id="username" class="form-control" value="<?= htmlspecialchars($admin['username']) ?>" required>
         </div>
-
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" name="email" id="email" class="form-control"
-                   value="<?= htmlspecialchars($admin['email']) ?>" required>
+            <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($admin['email']) ?>" required>
         </div>
-
         <div class="mb-3">
             <label for="password" class="form-label">New Password:</label>
             <input type="password" name="password" id="password" class="form-control">
         </div>
 
-
-
         <?php if (!$admin['is_superadmin']): ?>
-
             <div class="form-check mb-3">
                 <input type="checkbox" name="is_superadmin" class="form-check-input" id="is_superadmin"
                     <?= $admin['is_superadmin'] ? 'checked' : '' ?>>
@@ -41,20 +34,15 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Permissions:</label><br>
-                <?php
-                $allPermissions = ['view_statistics', 'view_reports'];
-                foreach ($allPermissions as $perm):
-                    ?>
+                <?php $allPermissions = ['view_statistics', 'view_reports']; foreach ($allPermissions as $perm):?>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox"
-                               name="permissions[]" value="<?= $perm ?>"
+                        <input class="form-check-input" type="checkbox" name="permissions[]" value="<?= $perm ?>"
                             <?= in_array($perm, $admin['permissions'] ?? []) ? 'checked' : '' ?>>
                         <label class="form-check-label"><?= ucfirst(str_replace('_', ' ', $perm)) ?></label>
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="/admin/manage-admins" class="btn btn-secondary">Cancel</a>
     </form>

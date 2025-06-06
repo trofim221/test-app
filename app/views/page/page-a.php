@@ -2,7 +2,6 @@
 
 <div class="container text-center mt-5">
     <h2>Page A — Buy a cow</h2>
-
     <?php if (!empty($_GET['bought'])): ?>
         <div class="alert alert-success mt-4">Дякуємо за покупку!</div>
     <?php else: ?>

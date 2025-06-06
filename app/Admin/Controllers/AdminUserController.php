@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Admin\Controllers;
 
 use App\Admin\Builders\AdminBuilder;
@@ -17,18 +19,18 @@ class AdminUserController extends Controllers
         $this->adminBuilder = $adminBuilder;
     }
 
-    public function index()
+    public function index(): void
     {
         $admins = $this->adminModel->getAll();
         View::render('admin/manage_admins/index', ['admins' => $admins]);
     }
 
-    public function create()
+    public function create(): void
     {
         View::render('admin/manage_admins/create');
     }
 
-    public function store()
+    public function store(): void
     {
         $this->adminBuilder
             ->setUsername($_POST['username'] ?? '')
@@ -47,9 +49,8 @@ class AdminUserController extends Controllers
         $this->redirect('/admin/manage-admins');
     }
 
-    public function edit($id)
+    public function edit(int $id): void
     {
-
         $admin = $this->adminModel->getById((int)$id);
         $admin['permissions'] = $this->adminModel->getPermissions((int)$id);
 
@@ -58,9 +59,8 @@ class AdminUserController extends Controllers
         ]);
     }
 
-    public function update($id)
+    public function update(int $id): void
     {
-
         $this->adminBuilder
             ->setUsername($_POST['username'] ?? '')
             ->setEmail($_POST['email'] ?? '')
@@ -74,16 +74,12 @@ class AdminUserController extends Controllers
         $adminData = $this->adminBuilder->build();
 
         $this->adminModel->updateAdmin((int)$id, $adminData, $adminData['permissions']);
-
         $this->redirect('/admin/manage-admins');
     }
 
-    public function delete($id)
+    public function delete(int $id): void
     {
         $this->adminModel->deleteById((int)$id);
-
         $this->redirect('/admin/manage-admins');
     }
-
-
 }

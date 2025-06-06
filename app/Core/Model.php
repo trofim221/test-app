@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Core;
 
 use PDO;
 use PDOException;
+
 class Model
 {
     protected PDO $db;
@@ -12,9 +15,6 @@ class Model
         $this->db = Database::getInstance()->getConnection();
     }
 
-    /**
-     * Execute a SELECT query and return the first result row.
-     */
     protected function fetchOne(string $sql, array $params = []): ?array
     {
         try {
@@ -26,9 +26,6 @@ class Model
         }
     }
 
-    /**
-     * Execute a SELECT query and return all result rows.
-     */
     protected function query(string $sql, array $params = []): array
     {
         try {
@@ -40,10 +37,6 @@ class Model
         }
     }
 
-
-    /**
-     * Execute an INSERT, UPDATE, or DELETE query.
-     */
     protected function execute(string $sql, array $params = []): int
     {
         try {
@@ -55,14 +48,8 @@ class Model
         }
     }
 
-    /**
-     * Get the ID of the last inserted row.
-     *
-     * @return string The last inserted ID.
-     */
     protected function lastInsertId(): string
     {
         return $this->db->lastInsertId();
     }
-
 }

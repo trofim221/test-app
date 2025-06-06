@@ -1,17 +1,21 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Core;
+
 use PDO;
 use PDOException;
+
 class Database
 {
     private static $instance = null;
     private $pdo;
 
-    private function __construct() {
+    private function __construct()
+    {
         $dsn = "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'] . ";charset=" . $_ENV['DB_CHARSET'];
         try {
-            $this->pdo = new PDO($dsn, $_ENV['DB_USER'],  $_ENV['DB_PASSWORD'], [
+            $this->pdo = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASSWORD'], [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_EMULATE_PREPARES => false
             ]);
@@ -21,14 +25,16 @@ class Database
         }
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             self::$instance = new self();
         }
         return self::$instance;
     }
 
-    public function getConnection() {
+    public function getConnection()
+    {
         return $this->pdo;
     }
 }

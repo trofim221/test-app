@@ -1,21 +1,27 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Core\Controllers;
 use App\Core\View;
-use App\Models\UserModel;
+use App\Services\UserAuthService;
+use App\Helpers\UserAuth;
 
 class UserAuthController extends Controllers
 {
-    private UserModel $userModel;
-    public function __construct(UserModel $userModel)
+    private UserAuthService $authService;
+
+    public function __construct(UserAuthService $authService)
     {
-        $this->userModel = $userModel;
+        $this->authService = $authService;
     }
 
-    public function loginForm()
+    public function loginForm(): void
     {
-        $this->redirectIfAuthenticated();
+        if (UserAuth::check()) {
+            $this->redirect('/page-a');
+        }
 
         $message = null;
         if (isset($_GET['success'])) {
@@ -25,78 +31,57 @@ class UserAuthController extends Controllers
         View::render('user/login', ['message' => $message]);
     }
 
-    public function login()
-    {
 
+    public function login(): void
+    {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        $user = $this->userModel->findByEmail($email);
-
-        if ($user && password_verify($password, $user['password'])) {
-
-            $this->createUserSession($user);
+        if ($this->authService->login($email, $password)) {
             $this->redirect('/page-a');
         }
 
         View::render('user/login', ['error' => 'Invalid email or password']);
     }
 
-    public function logout():void
+    public function logout(): void
     {
-        session_unset();
-        session_destroy();
+        UserAuth::logout();
         $this->redirect('/user/login');
+        exit;
     }
 
-    public function registerForm():void
+    public function registerForm(): void
     {
-        $this->redirectIfAuthenticated();
+        if (UserAuth::check()) {
+            $this->redirect('/page-a');
+        }
         View::render('user/register');
     }
 
-    public function register()
+    public function register(): void
     {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $name = $_POST['username'] ?? '';
 
-        if ($email && $password) {
-            $this->userModel->register($email, $password, $name);
+        if ($this->authService->register($email, $password, $name)) {
             $this->redirect('/user/login?success=1');
         }
 
         View::render('user/register', ['error' => 'Enter your email and password']);
     }
 
-    private function createUserSession(array $user): void
-    {
-        $_SESSION['user'] = [
-            'id' => $user['id'],
-            'email' => $user['email'],
-            'role' => $user['role'] ?? 'basic'
-        ];
-    }
-
     public function checkUserAccess(): ?array
     {
-        if (!isset($_SESSION['user'])) {
+        if (!UserAuth::check()) {
             $this->redirect('/user/login');
         }
-
-        return $_SESSION['user'];
+        return UserAuth::user();
     }
 
     public function isLoggedIn(): bool
     {
-        return isset($_SESSION['user']);
+        return UserAuth::check();
     }
-
-    private function redirectIfAuthenticated(): void
-    {
-        if (isset($_SESSION['user'])) {
-            $this->redirect('/page-a');
-        }
-    }
-
 }

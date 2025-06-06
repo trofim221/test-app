@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -7,6 +8,7 @@ use App\Core\Model;
 class UserEventModel extends Model
 {
     private $table = 'user_events';
+
     public function log(string $action, string $details = '', ?int $userId = null): void
     {
         $userId = $userId ?? ($_SESSION['user']['id'] ?? null);
@@ -25,5 +27,4 @@ class UserEventModel extends Model
     {
         return $this->query("SELECT * FROM {$this->table} ORDER BY created_at DESC");
     }
-
 }

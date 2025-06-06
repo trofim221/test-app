@@ -1,52 +1,38 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Core\View;
 use App\Core\Controllers;
+use App\Services\FileDownloader;
 
 class PageController extends Controllers
 {
+    private FileDownloader $downloader;
 
-    public function pageA()
+    public function __construct(FileDownloader $downloader)
+    {
+        $this->downloader = $downloader;
+    }
+
+    public function pageA(): void
     {
         View::render('page/page-a');
     }
 
-    public function buyCow()
+    public function buyCow(): void
     {
         $this->redirect('/page-a?bought=1');
     }
 
-    public function pageB()
+    public function pageB(): void
     {
         View::render('page/page-b');
     }
 
-    public function download(string $file = 'Setup.exe', string $dir = '/public/downloads/')
+    public function download(): void
     {
-        $filePath = $_SERVER['DOCUMENT_ROOT'] . $dir . $file;
-
-        if (!$this->fileExists($filePath)) {
-            return;
-        }
-
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header("Content-Disposition: attachment; filename=\"$file\"");
-        header('Content-Length: ' . filesize($filePath));
-        readfile($filePath);
-        exit;
+        $this->downloader->download('Setup.exe', '/public/downloads/');
     }
-
-    private function fileExists(string $filePath): bool
-    {
-        if (!file_exists($filePath)) {
-            http_response_code(404);
-            echo 'File not found.';
-            // to do: Log for file not found
-            return false;
-        }
-        return true;
-    }
-
 }

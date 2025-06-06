@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Middleware;
 
@@ -13,7 +14,7 @@ class UserRoleMiddleware extends Middleware
         $this->requiredRole = $requiredRole;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->checkLogin();
         $this->checkRoleMatch();

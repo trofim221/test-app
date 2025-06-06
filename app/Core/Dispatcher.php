@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Core;
 
 class Dispatcher
 {
-    public function __construct(private Container $container) {}
+    public function __construct(private Container $container)
+    {
+    }
 
     public function call(string $handler): mixed
     {

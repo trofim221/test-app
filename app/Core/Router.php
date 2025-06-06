@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Core;
 
@@ -8,7 +9,6 @@ class Router
     protected $currentMiddleware = null;
 
     protected $container;
-
 
     public function __construct(Container $container)
     {
@@ -74,9 +74,9 @@ class Router
         http_response_code(404);
         $this->show404();
     }
+
     protected function callAction($controllerAction, $params = [])
     {
-
         if (is_callable($controllerAction)) {
             return call_user_func_array($controllerAction, $params);
         }
@@ -103,7 +103,6 @@ class Router
 
         return call_user_func_array([$instance, $method], $params);
     }
-
 
     protected function convertPattern($pattern)
     {

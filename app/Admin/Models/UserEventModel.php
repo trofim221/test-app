@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Admin\Models;
 
 use App\Core\Model;
@@ -33,6 +35,4 @@ class UserEventModel extends Model
         $sql = "SELECT user_id, action, details, created_at FROM {$this->table} ORDER BY created_at DESC LIMIT ?";
         return $this->query($sql, [$limit]);
     }
-
-
 }

@@ -1,7 +1,11 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Core;
+
 use ReflectionClass;
 use Exception;
+
 class Container
 {
     public function resolve(string $class)
@@ -25,7 +29,7 @@ class Container
             if (!$paramClass || !class_exists($paramClass)) {
                 throw new Exception("Cannot resolve class dependency {$parameter->getName()}");
             }
-            $dependencies[] = $this->resolve($paramClass); // рекурсивно
+            $dependencies[] = $this->resolve($paramClass);
         }
 
         return $reflection->newInstanceArgs($dependencies);

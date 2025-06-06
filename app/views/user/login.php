@@ -19,11 +19,9 @@
             <div class="mb-4">
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
             </div>
-
             <div class="d-grid mb-3">
                 <button type="submit" class="btn btn-gradient">SIGN IN</button>
             </div>
-
             <div class="mt-3">
                 <a href="/user/register" class="text-info text-decoration-none small">Don't have an account?</a>
             </div>

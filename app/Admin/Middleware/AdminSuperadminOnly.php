@@ -1,12 +1,16 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Admin\Middleware;
+
 use App\Core\View;
+use App\Admin\Helpers\Auth;
 
 class AdminSuperadminOnly
 {
-    public function handle()
+    public function handle(): void
     {
-        if (empty($_SESSION['admin_id']) || empty($_SESSION['is_superadmin']) || $_SESSION['is_superadmin'] !== true) {
+        if (!Auth::check() || !Auth::isSuperAdmin()) {
             http_response_code(404);
             View::render('errors/404');
             exit;

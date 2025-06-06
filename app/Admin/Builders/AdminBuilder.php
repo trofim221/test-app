@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Admin\Builders;
 
@@ -32,7 +33,7 @@ class AdminBuilder
 
     public function setIsSuperAdmin(bool $isSuperAdmin): self
     {
-        $this->data['is_superadmin'] = $isSuperAdmin ? 1 : 0;
+        $this->data['is_superadmin'] = (int) $isSuperAdmin;
         return $this;
     }
 
@@ -52,10 +53,8 @@ class AdminBuilder
         return $this;
     }
 
-
     public function build(): array
     {
         return $this->data;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Admin\Controllers;
 
@@ -15,7 +16,7 @@ class ReportsController extends Controllers
         $this->eventModel = $eventModel;
     }
 
-    public function index()
+    public function index(): void
     {
         $reportData = $this->eventModel->getReportData();
 

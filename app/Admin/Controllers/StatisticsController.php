@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Admin\Controllers;
 
@@ -15,7 +16,7 @@ class StatisticsController extends Controllers
         $this->statisticsModel = $statisticsModel;
     }
 
-    public function index()
+    public function index(): void
     {
         $filters = [
             'user_id' => $_GET['user_id'] ?? null,
@@ -31,5 +32,4 @@ class StatisticsController extends Controllers
             'filters' => $filters,
         ]);
     }
-
 }

@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Admin\Middleware;
+
 use App\Core\View;
+use App\Admin\Helpers\Auth;
 
 class AdminPermission
 {
@@ -12,10 +15,10 @@ class AdminPermission
         $this->requiredPermission = $permission;
     }
 
-    public function handle()
+    public function handle(): void
     {
-        $isSuperadmin = $_SESSION['is_superadmin'] ?? false;
-        $permissions = $_SESSION['admin_permissions'] ?? [];
+        $isSuperadmin = Auth::isSuperAdmin();
+        $permissions = Auth::permissions();
 
         if (!$isSuperadmin && !in_array($this->requiredPermission, $permissions)) {
             http_response_code(404);

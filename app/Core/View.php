@@ -1,16 +1,21 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Core;
 
 class View
 {
-
     private static string $basePath = '';
 
     public static function setBasePath(string $path): void
     {
         self::$basePath = rtrim($path, '/') . '/';
     }
-    public static function render($view, $data = []):void
+
+    /**
+     * @throws \Exception
+     */
+    public static function render($view, $data = []): void
     {
         extract($data);
         $viewPath = self::$basePath . $view . '.php';

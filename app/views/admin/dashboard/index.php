@@ -2,8 +2,6 @@
 
 <div class="container mt-4">
     <h1 class="mb-4">Admin Dashboard</h1>
-
-
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="card text-white bg-primary mb-3">
@@ -22,7 +20,6 @@
             </div>
         </div>
     </div>
-
     <h4 class="mb-3">Recent User Actions</h4>
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">

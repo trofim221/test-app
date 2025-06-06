@@ -1,23 +1,28 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Admin\Controllers;
 
 use App\Core\Controllers;
 use App\Core\View;
 use App\Admin\Models\AdminModel;
+use App\Admin\Helpers\Auth;
+
 class AuthController extends Controllers
 {
-    private $adminModel;
+    private AdminModel $adminModel;
+
     public function __construct(AdminModel $adminModel)
     {
         $this->adminModel = $adminModel;
     }
 
-    public function loginForm()
+    public function loginForm(): void
     {
         View::render('admin/auth/login');
     }
 
-    public function login()
+    public function login(): void
     {
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -29,41 +34,32 @@ class AuthController extends Controllers
             $this->redirect('/admin');
         }
 
-        View::render('admin/auth/login', ['error' => 'Невірні облікові дані']);
+        View::render('admin/auth/login', ['error' => 'Invalid credentials']);
     }
 
-    public function logout()
+    public function logout(): void
     {
-        session_unset();
-        session_destroy();
+        Auth::logout();
         $this->redirect('/admin/login');
     }
 
     private function createAuthSession(array $user): void
     {
         $permissions = $this->adminModel->getPermissions($user['id']);
-
-        $_SESSION['admin_id'] = $user['id'];
-        $_SESSION['admin_username'] = $user['username'];
-        $_SESSION['is_superadmin'] = (bool) $user['is_superadmin'];
-        $_SESSION['admin_permissions'] = $permissions;
+        Auth::login($user, $permissions);
     }
 
     public function checkAdminAccess(): ?array
     {
-        if (!isset($_SESSION['admin_id'])) {
-            $this->redirectToLogin();
-        }
+        $userId = Auth::id();
 
-        $user = $this->adminModel->userExists((int)$_SESSION['admin_id']);
-
-        if (!$user) {
+        if (!$userId || !$this->adminModel->userExists((int)$userId)) {
             $this->redirectToLogin();
         }
 
         return [
-            'user_id' => $_SESSION['admin_id'],
-            'username' => $_SESSION['admin_username']
+            'user_id' => $userId,
+            'username' => Auth::username()
         ];
     }
 
@@ -74,7 +70,6 @@ class AuthController extends Controllers
 
     public function isLoggedIn(): bool
     {
-        return isset($_SESSION['admin_id']);
+        return Auth::check();
     }
-
 }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Admin\Models;
 
 use App\Core\Model;
@@ -6,6 +8,7 @@ use App\Core\Model;
 class StatisticsModel extends Model
 {
     private $table = 'user_events';
+
     public function getFiltered(array $filters = []): array
     {
         $sql = "SELECT * FROM {$this->table} WHERE 1=1";

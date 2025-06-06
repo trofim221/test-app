@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Admin\Models;
 
 use App\Core\Model;
@@ -43,7 +45,9 @@ class AdminModel extends Model
 
     public function getAll(): array
     {
-        return $this->query("SELECT id, username, email, is_superadmin, created_at FROM {$this->table} ORDER BY id DESC");
+        return $this->query(
+            "SELECT id, username, email, is_superadmin, created_at FROM {$this->table} ORDER BY id DESC"
+        );
     }
 
     public function createAdmin(array $admin): void
@@ -62,7 +66,7 @@ class AdminModel extends Model
             $params
         );
 
-        $adminId = (int) $this->db->lastInsertId();
+        $adminId = (int)$this->db->lastInsertId();
 
         $this->assignPermissions($adminId, $admin['permissions'] ?? []);
     }

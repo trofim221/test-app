@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 
@@ -19,6 +20,4 @@ class RouteLogger
             return (new Dispatcher($this->container))->call($handler);
         });
     }
-
-
 }
