@@ -11,6 +11,8 @@ services:
       - ../:/var/www/html
     depends_on:
       - db
+    environment:
+      - TZ=Europe/Kyiv
 
   db:
     image: mysql:8.0
@@ -21,6 +23,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
       MYSQL_ROOT_PASSWORD: root
+      TZ: Europe/Kyiv
     ports:
       - "3306:3306"
     volumes:
