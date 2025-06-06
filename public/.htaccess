@@ -2,26 +2,21 @@ php_flag display_errors On
 php_value error_reporting 32767
 
 RewriteEngine On
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^(.+)$ index.php [QSA,L]
+RewriteRule ^ index.php [QSA,L]
 
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Включити відображення помилок (тільки для розробки)
     php_flag display_errors On
     php_value error_reporting E_ALL
 
-    # Перенаправлення на index.php для "чистих" URL
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 
-    # Заборона доступу до певних файлів
     <FilesMatch "\.(env|json|config|log)$">
         Order allow,deny
         Deny from all

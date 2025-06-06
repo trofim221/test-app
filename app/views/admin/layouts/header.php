@@ -11,14 +11,14 @@ function can(string $permission): bool {
 
 ?>
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC APP Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/app/views/admin/assets/css/style.css?=<?=time();?>">
+    <link rel="stylesheet" href="/admin/assets/css/style.css?=<?=time();?>">
 </head>
 <body>
 <!-- Бокове меню зліва -->
@@ -32,7 +32,7 @@ function can(string $permission): bool {
     </div>
     <ul class="sidebar-menu">
         <li>
-            <a href="/admin/" class="<?= $currentPath === '/admin/' ? 'active' : '' ?>">
+            <a href="/admin/index" class="<?= $currentPath === '/admin/index' ? 'active' : '' ?>">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
         </li>
@@ -77,9 +77,7 @@ function can(string $permission): bool {
     </ul>
 </div>
 
-<!-- Основний контент -->
 <div class="main-content" id="mainContent">
-    <!-- Верхня навігаційна панель -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <button class="btn btn-dark d-lg-none" type="button" id="sidebarToggle">
@@ -88,7 +86,7 @@ function can(string $permission): bool {
             <div class="d-flex align-items-center ms-auto">
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/app/views/admin/assets/img/avatar.svg" width="36" alt="Admin" class="rounded-circle me-2">
+                        <img src="/admin/assets/img/avatar.svg" width="36" alt="Admin" class="rounded-circle me-2">
                         <span>Admin</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownUser">

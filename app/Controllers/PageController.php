@@ -33,6 +33,6 @@ class PageController extends Controllers
 
     public function download(): void
     {
-        $this->downloader->download('Setup.exe', '/public/downloads/');
+        $this->downloader->download('Setup.exe', '/downloads/');
     }
 }

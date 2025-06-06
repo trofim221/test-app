@@ -1,5 +1,5 @@
 ### Stack
-- PHP 8+, MySQL
+- PHP 8.4, MySQL
 - Composer (autoloading, phpdotenv)
 - Bootstrap 5
 - Apache

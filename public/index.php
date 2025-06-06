@@ -48,7 +48,7 @@ $router->get('/admin/logout', 'App\Admin\Controllers\AuthController@logout');
 
 // Admin panel routes with middleware protection
 $router->middleware(MiddlewareFactory::auth($container), function () use ($router, $container) {
-    $router->get('/admin', 'App\Admin\Controllers\DashboardController@index');
+    $router->get('/admin/index', 'App\Admin\Controllers\DashboardController@index');
 
     // View statistics permission
     $router->middleware(MiddlewareFactory::permission('view_statistics'), function () use ($router) {

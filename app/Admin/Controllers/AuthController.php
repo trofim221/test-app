@@ -19,6 +19,9 @@ class AuthController extends Controllers
 
     public function loginForm(): void
     {
+        if (Auth::check()) {
+            $this->redirect('/admin/index');
+        }
         View::render('admin/auth/login');
     }
 
@@ -31,7 +34,7 @@ class AuthController extends Controllers
 
         if ($user) {
             $this->createAuthSession($user);
-            $this->redirect('/admin');
+            $this->redirect('/admin/index');
         }
 
         View::render('admin/auth/login', ['error' => 'Invalid credentials']);
